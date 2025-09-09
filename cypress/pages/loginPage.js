@@ -1,22 +1,30 @@
 class LoginPage {
+
+   locators = {
+    emailInput: '[data-qa="login-email"]',
+    passwordInput: '[data-qa="login-password"]',
+    loginButton: '[data-qa="login-button"]',
+    loggedInMessage: "Logged in as"
+  };
+
     visit() {
       cy.visit("https://www.automationexercise.com/login");
     }
   
     fillEmail(email) {
-      cy.get('[data-qa="login-email"]').type(email);
+      cy.get(this.locators.emailInput).type(email);
     }
   
     fillPassword(password) {
-      cy.get('[data-qa="login-password"]').type(password);
+      cy.get(this.locators.passwordInput).type(password);
     }
   
     submit() {
-      cy.get('[data-qa="login-button"]').click();
+      cy.get(this.locators.loginButton).click();
     }
   
     validateLogin() {
-      cy.contains("Logged in as").should("be.visible");
+      cy.contains(this.locators.loggedInMessage).should("be.visible");
     }
   }
   
