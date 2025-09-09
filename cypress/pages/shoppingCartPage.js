@@ -1,11 +1,18 @@
 class shoppingCartPage {
+
+   locators = {
+    cartButton: "a[href='/view_cart'], .nav a:contains('View Cart')", // mais resiliente
+    cartDescription: ".cart_description",
+    productQuantity: ".disabled"
+  };
+
   goToCart() {
     cy.contains("View Cart").click();
   }
 
   validateProductInCart() {
-    cy.get(".cart_description").should("be.visible");
-    cy.get(".disabled").should("have.text", "1");
+    cy.get(this.locators.cartDescription).should("be.visible");
+    cy.get(this.locators.productQuantity).should("have.text", "1");
   }
 }
 
