@@ -1,42 +1,10 @@
 /// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
 
-/// <reference types="cypress" />
+const loginEmailInput = '[data-qa="login-email"]';
+const loginPasswordInput = '[data-qa="login-password"]';
+const loginButton = '[data-qa="login-button"]';
+const loggedInText = 'Logged in as';
+
 
 declare namespace Cypress {
     interface Chainable<Subject = any> {
@@ -46,9 +14,9 @@ declare namespace Cypress {
   
   Cypress.Commands.add('login', (email: string, password: string) => {
     cy.visit('/login');
-    cy.get('[data-qa="login-email"]').type(email);
-    cy.get('[data-qa="login-password"]').type(password, { log: false });
-    cy.get('[data-qa="login-button"]').click();
-    cy.contains('Logged in as').should('be.visible');
+    cy.get(loginEmailInput).type(email);
+    cy.get(loginPasswordInput).type(password, { log: false });
+    cy.get(loginButton).click();
+    cy.contains(loggedInText).should('be.visible');
   });
   
